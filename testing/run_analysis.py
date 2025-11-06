@@ -1,51 +1,79 @@
 import sys
-import os
 from pathlib import Path
+
 import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).parent))
 
-from data.download_cdc_data import create_simulated_cdc_data
-from preprocessing.data_prep import load_cdc_data, extract_seasonal_peaks, extract_weekly_exceedances, prepare_sir_data
 from models.gev_model import GEVModel
-from models.gpd_model import GPDModel
 from models.sir_model import SIRModel
-from visualization.plots import plot_gev_fit, plot_gpd_fit, plot_sir_dynamics, plot_comparison_metrics, plot_data_overview
+from preprocessing.data_prep import extract_seasonal_peaks, prepare_sir_data
+from visualization.plots import (
+    plot_comparison_metrics,
+    plot_data_overview,
+    plot_gev_fit,
+    plot_region_seasons,
+    plot_sir_dynamics,
+)
+
+TRAINING_SPLIT = 0.8
+N_SAMPLES = 200
 
 
-def run_analysis():
+def crps_empirical(samples: np.ndarray, observation: float) -> float:
+    """CRPS using empirical distribution of samples."""
+    samples = np.asarray(samples)
+    samples = samples[~np.isnan(samples)]
+    if len(samples) == 0:
+        return np.nan
+    term1 = np.mean(np.abs(samples - observation))
+    term2 = np.mean(np.abs(samples[:, None] - samples[None, :])) / 2
+    return term1 - term2
+
+
+def log_score(samples: np.ndarray, observation: float) -> float:
+    """Log score using KDE."""
+    from scipy.stats import gaussian_kde
+
+    samples = np.asarray(samples)
+    samples = samples[~np.isnan(samples)]
+    if len(samples) < 2:
+        return np.nan
+    try:
+        kde = gaussian_kde(samples)
+        density = kde.evaluate(observation)[0]
+        return -np.log(density + 1e-10)
+    except:
+        return np.nan
+
+
+def run_analysis(args):
     print("EVT ANALYSIS OF INFLUENZA DATA")
 
     output_dir = Path("outputs")
     output_dir.mkdir(exist_ok=True)
     data_dir = Path("data")
-    
+
     df = pd.read_csv(data_dir / "cdc_flu_data.csv")
 
     print(f"  {len(df)} rows loaded\n")
 
-    if 'YEAR' not in df.columns and 'DATE' in df.columns:
-        df['YEAR'] = pd.to_datetime(df['DATE']).dt.year
-    if 'WEEK' in df.columns and 'YEAR' in df.columns:
-        df['season_year'] = df.apply(lambda row: row['YEAR'] if row['WEEK'] < 30 else row['YEAR'] + 1, axis=1)
+    df["season_year"] = df.apply(
+        lambda row: row["YEAR"] if row["WEEK"] < 30 else row["YEAR"] + 1, axis=1
+    )
 
     seasonal_peaks_df = extract_seasonal_peaks(df)
+    seasonal_peaks_df = seasonal_peaks_df.sort_values(["season", "region"]).reset_index(drop=True)
+    seasonal_peaks = seasonal_peaks_df["peak_value"].values
 
-    if 'region' in seasonal_peaks_df.columns:
-        seasonal_peaks_df = seasonal_peaks_df.sort_values(['season', 'region']).reset_index(drop=True)
-    else:
-        seasonal_peaks_df = seasonal_peaks_df.sort_values('season').reset_index(drop=True)
+    df["region_number"] = df.apply(lambda row: int(row["REGION"].split()[1]), axis=1)
+    weekly_data_by_region = df[["%WEIGHTED ILI", "region_number"]].dropna().values
 
-    seasonal_peaks = seasonal_peaks_df['peak_value'].values
+    plot_data_overview(weekly_data_by_region, seasonal_peaks, str(output_dir / "data_overview.png"))
+    weekly_data = weekly_data_by_region[:, 0]
 
-    weekly_data = df['%WEIGHTED ILI'].dropna().values
-    sir_data = prepare_sir_data(df)
-    time, infected = sir_data['week'].values, sir_data['cases'].values
-
-    plot_data_overview(weekly_data, seasonal_peaks, str(output_dir / "data_overview.png"))
-
-    n_train = int(len(seasonal_peaks) * 0.8)
+    n_train = int(len(seasonal_peaks) * TRAINING_SPLIT)
     train_peaks = seasonal_peaks[:n_train]
     test_peaks = seasonal_peaks[n_train:]
     test_peaks_df = seasonal_peaks_df.iloc[n_train:].copy()
@@ -60,69 +88,100 @@ def run_analysis():
     print(f"  10-yr return: {gev.return_level(10):.1f}")
     print(f"  100-yr return: {gev.return_level(100):.1f}\n")
 
-    print("Fitting GPD model on all weekly data...")
-    gpd = GPDModel()
-    gpd.fit(weekly_data, threshold_percentile=90, method="mle")
-    gpd.goodness_of_fit(weekly_data)
-    plot_gpd_fit(gpd, weekly_data, str(output_dir / "gpd_fit.png"))
-    print(f"  P(exceed 2×u): {gpd.predict_exceedance_probability(gpd.threshold * 2):.4f}\n")
-
-    print("Generating predictions for test region-seasons...")
-    gev_predictions = np.array([gev.return_level(2) for _ in test_peaks])
-    sir_predictions = []
+    print("Generating probabilistic predictions for test region-seasons...")
+    gev_prediction_samples = []
+    sir_prediction_samples = []
 
     for idx, row in test_peaks_df.iterrows():
-        season = row['season']
-        region = row.get('region', None)
+        season = row["season"]
+        region = row.get("region")
+        print(f"Season: {season}, region: {region}")
 
-        if 'season_year' in df.columns:
-            season_df = df[df['season_year'] == season]
-        else:
-            season_df = df[df['YEAR'] == season]
+        gev_samples = gev.sample(N_SAMPLES)
+        gev_prediction_samples.append(gev_samples)
 
-        if region and 'REGION' in df.columns:
-            season_df = season_df[season_df['REGION'] == region]
-
-        if len(season_df) < 10:
-            sir_predictions.append(np.nan)
-            continue
-
-        season_sir_data = prepare_sir_data(season_df)
-        season_time = season_sir_data['week'].values
-        season_infected = season_sir_data['cases'].values
+        season_df = df[df["season_year"] == season]
+        season_sir_data = prepare_sir_data(season_df, region=region)
+        season_time = season_sir_data["week"].values
+        season_infected = season_sir_data["cases"].values
 
         sir_model = SIRModel(population=1e6)
-        try:
-            season_infected_scaled = season_infected * (sir_model.population / 100)
-            sir_model.fit(season_time[:min(40, len(season_time))], season_infected_scaled[:min(40, len(season_time))])
-            peak_i, _ = sir_model.peak_infected()
-            peak_i_percentage = (peak_i / sir_model.population) * 100
-            sir_predictions.append(peak_i_percentage)
-        except:
-            sir_predictions.append(np.nan)
+        season_infected_scaled = season_infected * (sir_model.population / 100)
 
-    sir_predictions = np.array(sir_predictions)
+        n_fit = min(args.n_weeks if args.n_weeks else 40, len(season_time))
+        sir_model.fit(season_time[:n_fit], season_infected_scaled[:n_fit], n_weeks=args.n_weeks)
+
+        sir_samples = sir_model.bootstrap_predict_peak(
+            season_time[:n_fit], season_infected_scaled[:n_fit], n_samples=N_SAMPLES
+        )
+        sir_prediction_samples.append(sir_samples)
+
+    sir_data = prepare_sir_data(df, region="Region 6")
+    plot_region_seasons(sir_data, str(output_dir / "one_season_overview.png"))
+    time, infected = sir_data["week"].values, sir_data["cases"].values
 
     sir = SIRModel(population=1e6)
-    n_weeks = min(40, len(time))
+
+    year = args.year  # 13
+    start_idx = year * 33
+    end_idx = (year + 1) * 33
     infected_scaled = infected * (sir.population / 100)
-    sir.fit(time[:n_weeks], infected_scaled[:n_weeks])
-    plot_sir_dynamics(sir, time[:n_weeks], infected_scaled[:n_weeks], str(output_dir / "sir_dynamics.png"))
+    sir.fit(time[start_idx:end_idx], infected_scaled[start_idx:end_idx])
+    plot_sir_dynamics(
+        sir,
+        time[start_idx:end_idx],
+        infected_scaled[start_idx:end_idx],
+        str(output_dir / "sir_dynamics.png"),
+    )
     print(f"  Example SIR R₀={sir.R0:.2f}\n")
 
-    print("Generating comparison metrics...")
-    metrics = plot_comparison_metrics(gev_predictions, sir_predictions, test_peaks, str(output_dir / "comparison_metrics.png"))
+    print("Computing proper scoring rules...")
+    gev_crps = np.array(
+        [crps_empirical(gev_prediction_samples[i], test_peaks[i]) for i in range(len(test_peaks))]
+    )
+    sir_crps = np.array(
+        [crps_empirical(sir_prediction_samples[i], test_peaks[i]) for i in range(len(test_peaks))]
+    )
+
+    gev_logscore = np.array(
+        [log_score(gev_prediction_samples[i], test_peaks[i]) for i in range(len(test_peaks))]
+    )
+    sir_logscore = np.array(
+        [log_score(sir_prediction_samples[i], test_peaks[i]) for i in range(len(test_peaks))]
+    )
+
+    gev_medians = np.array([np.median(s) for s in gev_prediction_samples])
+    sir_medians = np.array([np.median(s) for s in sir_prediction_samples])
+
+    metrics = plot_comparison_metrics(
+        gev_medians,
+        sir_medians,
+        test_peaks,
+        str(output_dir / "comparison_metrics.png"),
+        gev_samples=gev_prediction_samples,
+        sir_samples=sir_prediction_samples,
+        gev_crps=gev_crps,
+        sir_crps=sir_crps,
+        gev_logscore=gev_logscore,
+        sir_logscore=sir_logscore,
+    )
 
     print("COMPLETE - Plots saved to outputs/")
-    print(f"\nKey Results:")
+    print("\nKey Results:")
     print(f"  GEV ξ={gev.shape:.3f}, 100-yr={gev.return_level(100):.1f}")
-    print(f"  GPD ξ={gpd.shape:.3f}")
-    print(f"  GEV Test MAE: {metrics['gev_mae']:.2f}, RMSE: {metrics['gev_rmse']:.2f}")
-    print(f"  SIR Test MAE: {metrics['sir_mae']:.2f}, RMSE: {metrics['sir_rmse']:.2f}")
+    print("\nProper Scoring Rules (lower is better):")
+    print(f"  GEV CRPS: {np.nanmean(gev_crps):.3f}, LogScore: {np.nanmean(gev_logscore):.3f}")
+    print(f"  SIR CRPS: {np.nanmean(sir_crps):.3f}, LogScore: {np.nanmean(sir_logscore):.3f}")
+    print("\nMedian Predictions:")
+    print(f"  GEV MAE: {metrics['gev_mae']:.2f}, RMSE: {metrics['gev_rmse']:.2f}")
+    print(f"  SIR MAE: {metrics['sir_mae']:.2f}, RMSE: {metrics['sir_rmse']:.2f}")
 
 
 if __name__ == "__main__":
     import argparse
+
     parser = argparse.ArgumentParser()
+    parser.add_argument("--year", type=int)
+    parser.add_argument("--n_weeks", type=int)
     args = parser.parse_args()
-    run_analysis()
+    run_analysis(args)

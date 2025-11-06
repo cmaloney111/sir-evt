@@ -1,0 +1,9 @@
+.coverage
+.pytest_cache
+.ruff_cache
+.hypothesis
+results*
+__pycache__/
+*.pyc
+**/__pycache__/
+**/*.pyc
