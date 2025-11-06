@@ -1,0 +1,87 @@
+[build-system]
+requires = ["setuptools>=65.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flu-peak"
+version = "0.1.0"
+description = "Influenza peak prediction with GEV and SIR models"
+authors = [{name = "Cameron Maloney", email = "cmaloney@g.harvard.edu"}]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24.0",
+    "scipy>=1.10.0",
+    "pandas>=2.0.0",
+    "matplotlib>=3.7.0",
+    "statsmodels>=0.14.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "hypothesis>=6.82.0",
+    "ruff>=0.1.0",
+    "mypy>=1.5.0",
+    "sphinx>=7.0.0",
+    "sphinx-rtd-theme>=1.3.0",
+]
+
+[project.scripts]
+run_experiment = "flu_peak.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "N", "B", "A", "C4", "DTZ", "T10", "RET", "SIM", "ARG"]
+ignore = ["E501", "B905", "E722", "DTZ001"]  # Allow zip without strict, long lines, bare except, datetime without tz
+
+[tool.ruff.lint.per-file-ignores]
+"*" = ["N806"]  # Allow uppercase variable names globally (for SIR models: S, I, R, N)
+"tests/*" = ["ARG001", "S101", "N806", "E741", "F841", "N803", "B007"]  # Allow SIR naming conventions in tests
+"src/flu_peak/models/sir*.py" = ["N806", "E741", "N803", "ARG002"]  # Allow SIR naming conventions (S, I, R, N, I0, S0, R0)
+"src/flu_peak/models/sir.py" = ["ARG001", "SIM108"]  # Allow unused args and simple if-else
+"src/flu_peak/cli.py" = ["B007", "F841"]  # Allow unused loop variables
+"src/flu_peak/plot.py" = ["B007", "SIM108"]  # Allow unused loop variables and simple if-else
+"src/flu_peak/preprocess.py" = ["ARG001"]  # Allow unused config argument
+"testing/**/*.py" = ["B007", "F841", "E741", "ARG002"]  # Allow testing directory patterns
+"notebooks/*" = ["B905", "C408", "I001", "B007"]  # Ignore notebook-specific warnings
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+]
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "-ra",
+    "-m", "not slow",
+]
+
+[tool.hypothesis]
+max_examples = 20
+deadline = 10000
+
+[tool.coverage.run]
+source = ["src"]
+branch = true
+omit = [
+    "src/flu_peak/cli.py",
+    "src/flu_peak/plot.py",
+]
+
+[tool.coverage.report]
+precision = 2
+show_missing = true
+skip_covered = false
