@@ -1,0 +1,2 @@
+[console_scripts]
+run_experiment = flu_peak.cli:main

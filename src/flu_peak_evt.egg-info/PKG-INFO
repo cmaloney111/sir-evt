@@ -1,0 +1,229 @@
+Metadata-Version: 2.4
+Name: flu-peak-evt
+Version: 0.1.0
+Summary: Influenza extreme-peak modeling with EVT and SIR
+Author-email: Cameron Maloney <cmaloney@g.harvard.edu>
+License: MIT
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy>=1.24.0
+Requires-Dist: scipy>=1.10.0
+Requires-Dist: pandas>=2.0.0
+Requires-Dist: matplotlib>=3.7.0
+Requires-Dist: statsmodels>=0.14.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.4.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.1.0; extra == "dev"
+Requires-Dist: hypothesis>=6.82.0; extra == "dev"
+Requires-Dist: ruff>=0.1.0; extra == "dev"
+Requires-Dist: mypy>=1.5.0; extra == "dev"
+Requires-Dist: sphinx>=7.0.0; extra == "dev"
+Requires-Dist: sphinx-rtd-theme>=1.3.0; extra == "dev"
+Dynamic: license-file
+
+# Influenza Peak Prediction with Extreme Value Theory
+
+Probabilistic modeling of seasonal influenza peaks using Extreme Value Theory (EVT) and mechanistic SIR models, with proper scoring rules for rigorous comparison.
+
+## Overview
+
+This project applies **Extreme Value Theory** to predict rare extreme flu seasons, comparing the GEV statistical model against a baseline epidemiological SIR model using probabilistic forecasting and proper scoring rules (CRPS, log-likelihood).
+
+### Key Features
+
+- **GEV Model**: Block maxima approach for seasonal peaks
+- **SIR Model**: Mechanistic epidemiological baseline with bootstrap uncertainty
+- **Probabilistic Comparison**: Full predictive distributions with CRPS and log scores
+- **Production Package**: Clean, tested, type-checked implementation
+
+## Installation
+
+```bash
+# Using pip
+pip install -e .
+pip install -e ".[dev]"  # For development
+
+# Using uv (recommended)
+uv venv
+source .venv/bin/activate
+uv pip install -e ".[dev]"
+```
+
+## Quick Start
+
+### Using the Package
+
+```python
+import numpy as np
+from flu_peak.models import GEVModel, fit_gev_to_peaks
+from flu_peak.models import SIRModel, fit_sir_to_incidence
+
+# Fit GEV to seasonal peaks
+peaks = np.array([4.5, 6.2, 5.1, 7.8, 9.3, 5.5, 6.1])
+gev = fit_gev_to_peaks(peaks, method="mle")
+
+# Generate probabilistic predictions
+samples = gev.sample(n=1000, seed=42)
+print(f"Median: {np.median(samples):.2f}")
+print(f"95% CI: [{np.percentile(samples, 2.5):.2f}, {np.percentile(samples, 97.5):.2f}]")
+
+# Fit SIR model
+t = np.linspace(0, 100, 100)
+incidence = np.random.gamma(2, 50, 100)  # Example data
+sir = fit_sir_to_incidence(incidence, t, N=10000)
+
+# Get peak distribution
+peak_samples = sir.predict_peak_distribution(incidence, t, n_samples=1000)
+```
+
+### Running Analysis on CDC Data
+
+```bash
+cd testing
+python run_analysis.py --year 13 --n_weeks 40
+```
+
+This generates plots in `outputs/`:
+- `gev_fit.png` - GEV diagnostics (PDF, CDF, return levels)
+- `sir_dynamics.png` - SIR trajectories and fit
+- `comparison_metrics.png` - Probabilistic comparison with IQR bands
+- `data_overview.png` - Time series and distributions
+
+## Model Details
+
+### GEV (Generalized Extreme Value)
+
+Fits the distribution of seasonal peak maxima.
+
+**Distribution:** `F(x) = exp(-(1 + ξ(x-μ)/σ)^(-1/ξ))`
+
+**Parameters:**
+- `μ`: Location (center)
+- `σ`: Scale (spread)
+- `ξ`: Shape (tail: ξ>0 heavy, ξ=0 Gumbel, ξ<0 bounded)
+
+**Methods:**
+- `return_level(T)`: T-year return level
+- `sample(n)`: Generate samples
+
+### SIR (Susceptible-Infected-Recovered)
+
+Mechanistic epidemiological model.
+
+**Equations:**
+```
+dS/dt = -βSI/N
+dI/dt = βSI/N - γI
+dR/dt = γI
+```
+
+**Bootstrap:** Resamples to generate peak distributions.
+
+## Evaluation Metrics
+
+### CRPS (Continuous Ranked Probability Score)
+Proper scoring rule for probabilistic forecasts. Lower is better.
+
+### Log Score
+Negative log-likelihood via KDE. Higher (less negative) is better.
+
+### Point Metrics
+MAE, RMSE, MAPE on median predictions.
+
+## Data
+
+**CDC FluView ILINet (2010-2024)**
+- 14 seasons × 10 HHS regions
+- 4,620 weekly measurements
+- 140 seasonal peaks
+- Metric: %WEIGHTED ILI
+
+**Season:** Weeks 40-52 + 1-20 (Oct-May)
+
+## Project Structure
+
+```
+.
+├── src/flu_peak/          # Production package
+│   ├── models/
+│   │   ├── gev.py         # GEV model
+│   │   └── sir.py         # SIR model
+│   ├── eval.py            # Scoring rules
+│   ├── preprocess.py      # Data utilities
+│   └── cli.py             # CLI
+├── tests/                 # Test suite (90%+ coverage)
+├── testing/               # Analysis scripts
+│   ├── run_analysis.py    # Main pipeline
+│   ├── models/
+│   └── data/              # CDC data
+└── docs/                  # Documentation
+```
+
+## Development
+
+### Running Tests
+
+```bash
+make test          # Fast tests
+make test-all      # All tests
+make lint          # Linting
+make typecheck     # Type checking
+make docs          # Documentation
+make all           # Everything
+```
+
+### Type Checking
+
+All code is type-hinted and mypy-strict:
+
+```bash
+mypy src/flu_peak --strict
+```
+
+### Coverage
+
+90%+ coverage (excluding CLI and plotting):
+
+```bash
+pytest --cov=src --cov-report=html
+```
+
+## Results
+
+**CDC 2010-2024 (28 test seasons):**
+
+**Proper Scoring Rules:**
+- GEV CRPS: 1.446 ✓ (better)
+- SIR CRPS: 1.459
+- GEV Log Score: 2.407 ✓ (better)
+- SIR Log Score: 13.470
+
+**Point Predictions (Median):**
+- GEV MAE: 2.16, RMSE: 2.67
+- SIR MAE: 1.69, RMSE: 1.83 ✓ (better)
+
+**Key Findings:**
+- Flu peaks have bounded tail (ξ ≈ -0.04)
+- GEV has better-calibrated probabilistic forecasts
+- SIR has better point predictions but worse uncertainty
+- 100-year return level: ~12.7% ILI
+
+## Dependencies
+
+- Python ≥ 3.10
+- numpy ≥ 1.24
+- scipy ≥ 1.10
+- pandas ≥ 2.0
+- matplotlib ≥ 3.7
+- statsmodels ≥ 0.14
+
+## License
+
+MIT License - see LICENSE file.
+
+## References
+
+1. Coles, S. (2001). *An Introduction to Statistical Modeling of Extreme Values*. Springer.
+2. Kermack & McKendrick (1927). *A contribution to the mathematical theory of epidemics*. Proc. Royal Society A.
+3. Gneiting & Raftery (2007). *Strictly proper scoring rules*. JASA.
