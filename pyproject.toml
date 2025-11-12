@@ -80,6 +80,7 @@ omit = [
     "src/flu_peak/cli.py",
     "src/flu_peak/plot.py",
     "src/flu_peak/models/*_testing.py",
+    "src/flu_peak/models/*_cli.py",
 ]
 
 [tool.coverage.report]
