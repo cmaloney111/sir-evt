@@ -28,11 +28,11 @@ uv pip install -e ".[dev]"
 run_experiment --data data/cdc_flu_data.csv --output results/
 
 # With custom parameters
-run_experiment --data data/cdc_flu_data.csv --output results/ \
+run_experiment --data data/cdc_flu_data.csv --output results_custom/ \
   --test-seasons 2 --n-weeks 40 --year 13
 
 # Generate synthetic data
-run_experiment --synthetic --seasons 10 --regions 5 --output results/
+run_experiment --synthetic --seasons 10 --regions 5 --output results_synth/
 ```
 
 **Generated plots:**
@@ -72,7 +72,7 @@ print(f"100-year: {gev.return_level(100):.1f}")
 
 Models compared using proper scoring rules:
 - **CRPS** (Continuous Ranked Probability Score): Lower is better
-- **Log Score**: Negative log-likelihood via KDE, higher is better
+- **Log Score**: Negative log-likelihood via KDE, lower is better
 
 ## Data Format
 
@@ -85,21 +85,7 @@ CDC FluView format required:
 ```bash
 make test          # Run tests
 make lint          # Lint code
-make typecheck     # Type checking
 make all           # All checks
-```
-
-## Project Structure
-
-```
-├── src/flu_peak/       # Package
-│   ├── models/         # GEV and SIR models
-│   ├── data.py         # Data loading
-│   ├── preprocess.py   # Peak extraction
-│   ├── eval.py         # Scoring rules
-│   └── cli.py          # Command-line interface
-├── tests/              # Test suite
-└── data/               # CDC flu data
 ```
 
 ## License

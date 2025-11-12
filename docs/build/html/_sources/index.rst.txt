@@ -1,7 +1,7 @@
-flu-peak-evt Documentation
-===========================
+flu-peak Documentation
+======================
 
-Influenza extreme-peak modeling using EVT and SIR.
+Influenza peak prediction with GEV and SIR models.
 
 .. toctree::
    :maxdepth: 2
@@ -14,39 +14,73 @@ Installation
 
 .. code-block:: bash
 
-   uv venv
-   source .venv/bin/activate
-   uv pip install -e ".[dev]"
+   pip install -e .
 
 Usage
 -----
 
 .. code-block:: bash
 
-   run_experiment examples/sample_influenza.csv --output results/
+   run_experiment --help
+
+Modules
+-------
+
+.. toctree::
+   :maxdepth: 4
+
+   flu_peak
 
 API Reference
--------------
+=============
+
+.. automodule:: flu_peak
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Data Module
+-----------
 
 .. automodule:: flu_peak.data
    :members:
    :undoc-members:
+   :show-inheritance:
 
-.. automodule:: flu_peak.preprocess
-   :members:
-   :undoc-members:
-
-.. automodule:: flu_peak.models.sir
-   :members:
-   :undoc-members:
-
-.. automodule:: flu_peak.models.evt
-   :members:
-   :undoc-members:
+Evaluation Module
+-----------------
 
 .. automodule:: flu_peak.eval
    :members:
    :undoc-members:
+   :show-inheritance:
+
+Preprocessing Module
+--------------------
+
+.. automodule:: flu_peak.preprocess
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Models
+------
+
+GEV Model
+~~~~~~~~~
+
+.. automodule:: flu_peak.models.gev
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+SIR Model
+~~~~~~~~~
+
+.. automodule:: flu_peak.models.sir
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Indices and tables
 ==================

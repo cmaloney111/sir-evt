@@ -6,15 +6,15 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>flu-peak-evt Documentation &mdash; flu-peak-evt 0.1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+  <title>flu-peak Documentation &mdash; flu-peak 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="_static/documentation_options.js?v=01f34227"></script>
-      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -30,7 +30,7 @@
           
           
           <a href="#" class="icon icon-home">
-            flu-peak-evt
+            flu-peak
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -42,12 +42,27 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <!-- Local TOC -->
               <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">flu-peak-evt Documentation</a><ul>
+<li><a class="reference internal" href="#">flu-peak Documentation</a><ul>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#usage">Usage</a></li>
-<li><a class="reference internal" href="#module-flu_peak.data">API Reference</a><ul>
+<li><a class="reference internal" href="#modules">Modules</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flu_peak">API Reference</a><ul>
+<li><a class="reference internal" href="#module-flu_peak.data">Data Module</a><ul>
 <li><a class="reference internal" href="#flu_peak.data.generate_synthetic_data"><code class="docutils literal notranslate"><span class="pre">generate_synthetic_data()</span></code></a></li>
 <li><a class="reference internal" href="#flu_peak.data.load_flu_data"><code class="docutils literal notranslate"><span class="pre">load_flu_data()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flu_peak.eval">Evaluation Module</a><ul>
+<li><a class="reference internal" href="#flu_peak.eval.crps"><code class="docutils literal notranslate"><span class="pre">crps()</span></code></a></li>
+<li><a class="reference internal" href="#flu_peak.eval.log_score"><code class="docutils literal notranslate"><span class="pre">log_score()</span></code></a></li>
+<li><a class="reference internal" href="#flu_peak.eval.coverage"><code class="docutils literal notranslate"><span class="pre">coverage()</span></code></a></li>
+<li><a class="reference internal" href="#flu_peak.eval.brier_score"><code class="docutils literal notranslate"><span class="pre">brier_score()</span></code></a></li>
+<li><a class="reference internal" href="#flu_peak.eval.pit_histogram"><code class="docutils literal notranslate"><span class="pre">pit_histogram()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flu_peak.preprocess">Preprocessing Module</a><ul>
 <li><a class="reference internal" href="#flu_peak.preprocess.SeasonConfig"><code class="docutils literal notranslate"><span class="pre">SeasonConfig</span></code></a><ul>
 <li><a class="reference internal" href="#flu_peak.preprocess.SeasonConfig.start_month"><code class="docutils literal notranslate"><span class="pre">SeasonConfig.start_month</span></code></a></li>
 <li><a class="reference internal" href="#flu_peak.preprocess.SeasonConfig.start_day"><code class="docutils literal notranslate"><span class="pre">SeasonConfig.start_day</span></code></a></li>
@@ -59,39 +74,44 @@
 <li><a class="reference internal" href="#flu_peak.preprocess.SeasonPeak.season"><code class="docutils literal notranslate"><span class="pre">SeasonPeak.season</span></code></a></li>
 <li><a class="reference internal" href="#flu_peak.preprocess.SeasonPeak.region"><code class="docutils literal notranslate"><span class="pre">SeasonPeak.region</span></code></a></li>
 <li><a class="reference internal" href="#flu_peak.preprocess.SeasonPeak.peak_cases"><code class="docutils literal notranslate"><span class="pre">SeasonPeak.peak_cases</span></code></a></li>
-<li><a class="reference internal" href="#flu_peak.preprocess.SeasonPeak.peak_date"><code class="docutils literal notranslate"><span class="pre">SeasonPeak.peak_date</span></code></a></li>
-<li><a class="reference internal" href="#flu_peak.preprocess.SeasonPeak.season_start"><code class="docutils literal notranslate"><span class="pre">SeasonPeak.season_start</span></code></a></li>
-<li><a class="reference internal" href="#flu_peak.preprocess.SeasonPeak.season_end"><code class="docutils literal notranslate"><span class="pre">SeasonPeak.season_end</span></code></a></li>
+<li><a class="reference internal" href="#flu_peak.preprocess.SeasonPeak.peak_week"><code class="docutils literal notranslate"><span class="pre">SeasonPeak.peak_week</span></code></a></li>
+<li><a class="reference internal" href="#flu_peak.preprocess.SeasonPeak.peak_year"><code class="docutils literal notranslate"><span class="pre">SeasonPeak.peak_year</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#flu_peak.preprocess.extract_season_peaks"><code class="docutils literal notranslate"><span class="pre">extract_season_peaks()</span></code></a></li>
 <li><a class="reference internal" href="#flu_peak.preprocess.split_train_test"><code class="docutils literal notranslate"><span class="pre">split_train_test()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#models">Models</a><ul>
+<li><a class="reference internal" href="#module-flu_peak.models.gev">GEV Model</a><ul>
+<li><a class="reference internal" href="#flu_peak.models.gev.GEVModel"><code class="docutils literal notranslate"><span class="pre">GEVModel</span></code></a><ul>
+<li><a class="reference internal" href="#flu_peak.models.gev.GEVModel.mu"><code class="docutils literal notranslate"><span class="pre">GEVModel.mu</span></code></a></li>
+<li><a class="reference internal" href="#flu_peak.models.gev.GEVModel.sigma"><code class="docutils literal notranslate"><span class="pre">GEVModel.sigma</span></code></a></li>
+<li><a class="reference internal" href="#flu_peak.models.gev.GEVModel.xi"><code class="docutils literal notranslate"><span class="pre">GEVModel.xi</span></code></a></li>
+<li><a class="reference internal" href="#flu_peak.models.gev.GEVModel.return_level"><code class="docutils literal notranslate"><span class="pre">GEVModel.return_level()</span></code></a></li>
+<li><a class="reference internal" href="#flu_peak.models.gev.GEVModel.pdf"><code class="docutils literal notranslate"><span class="pre">GEVModel.pdf()</span></code></a></li>
+<li><a class="reference internal" href="#flu_peak.models.gev.GEVModel.cdf"><code class="docutils literal notranslate"><span class="pre">GEVModel.cdf()</span></code></a></li>
+<li><a class="reference internal" href="#flu_peak.models.gev.GEVModel.sample"><code class="docutils literal notranslate"><span class="pre">GEVModel.sample()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#flu_peak.models.gev.fit_gev_to_peaks"><code class="docutils literal notranslate"><span class="pre">fit_gev_to_peaks()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-flu_peak.models.sir">SIR Model</a><ul>
 <li><a class="reference internal" href="#flu_peak.models.sir.SIRModel"><code class="docutils literal notranslate"><span class="pre">SIRModel</span></code></a><ul>
 <li><a class="reference internal" href="#flu_peak.models.sir.SIRModel.beta"><code class="docutils literal notranslate"><span class="pre">SIRModel.beta</span></code></a></li>
 <li><a class="reference internal" href="#flu_peak.models.sir.SIRModel.gamma"><code class="docutils literal notranslate"><span class="pre">SIRModel.gamma</span></code></a></li>
 <li><a class="reference internal" href="#flu_peak.models.sir.SIRModel.N"><code class="docutils literal notranslate"><span class="pre">SIRModel.N</span></code></a></li>
 <li><a class="reference internal" href="#flu_peak.models.sir.SIRModel.simulate"><code class="docutils literal notranslate"><span class="pre">SIRModel.simulate()</span></code></a></li>
 <li><a class="reference internal" href="#flu_peak.models.sir.SIRModel.bootstrap_predict"><code class="docutils literal notranslate"><span class="pre">SIRModel.bootstrap_predict()</span></code></a></li>
+<li><a class="reference internal" href="#flu_peak.models.sir.SIRModel.predict_peak_distribution"><code class="docutils literal notranslate"><span class="pre">SIRModel.predict_peak_distribution()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#flu_peak.models.sir.fit_sir_to_incidence"><code class="docutils literal notranslate"><span class="pre">fit_sir_to_incidence()</span></code></a></li>
 <li><a class="reference internal" href="#flu_peak.models.sir.bootstrap_predict"><code class="docutils literal notranslate"><span class="pre">bootstrap_predict()</span></code></a></li>
-<li><a class="reference internal" href="#flu_peak.models.evt.EVTModel"><code class="docutils literal notranslate"><span class="pre">EVTModel</span></code></a><ul>
-<li><a class="reference internal" href="#flu_peak.models.evt.EVTModel.xi"><code class="docutils literal notranslate"><span class="pre">EVTModel.xi</span></code></a></li>
-<li><a class="reference internal" href="#flu_peak.models.evt.EVTModel.sigma"><code class="docutils literal notranslate"><span class="pre">EVTModel.sigma</span></code></a></li>
-<li><a class="reference internal" href="#flu_peak.models.evt.EVTModel.threshold"><code class="docutils literal notranslate"><span class="pre">EVTModel.threshold</span></code></a></li>
-<li><a class="reference internal" href="#flu_peak.models.evt.EVTModel.quantile"><code class="docutils literal notranslate"><span class="pre">EVTModel.quantile()</span></code></a></li>
-<li><a class="reference internal" href="#flu_peak.models.evt.EVTModel.pdf"><code class="docutils literal notranslate"><span class="pre">EVTModel.pdf()</span></code></a></li>
-<li><a class="reference internal" href="#flu_peak.models.evt.EVTModel.sample"><code class="docutils literal notranslate"><span class="pre">EVTModel.sample()</span></code></a></li>
+<li><a class="reference internal" href="#flu_peak.models.sir.predict_peak_distribution"><code class="docutils literal notranslate"><span class="pre">predict_peak_distribution()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#flu_peak.models.evt.fit_gpd_to_peaks"><code class="docutils literal notranslate"><span class="pre">fit_gpd_to_peaks()</span></code></a></li>
-<li><a class="reference internal" href="#flu_peak.models.evt.fit_hierarchical_gpd"><code class="docutils literal notranslate"><span class="pre">fit_hierarchical_gpd()</span></code></a></li>
-<li><a class="reference internal" href="#flu_peak.eval.crps"><code class="docutils literal notranslate"><span class="pre">crps()</span></code></a></li>
-<li><a class="reference internal" href="#flu_peak.eval.log_score"><code class="docutils literal notranslate"><span class="pre">log_score()</span></code></a></li>
-<li><a class="reference internal" href="#flu_peak.eval.coverage"><code class="docutils literal notranslate"><span class="pre">coverage()</span></code></a></li>
-<li><a class="reference internal" href="#flu_peak.eval.brier_score"><code class="docutils literal notranslate"><span class="pre">brier_score()</span></code></a></li>
-<li><a class="reference internal" href="#flu_peak.eval.pit_histogram"><code class="docutils literal notranslate"><span class="pre">pit_histogram()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -105,7 +125,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">flu-peak-evt</a>
+          <a href="#">flu-peak</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -113,7 +133,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">flu-peak-evt Documentation</li>
+      <li class="breadcrumb-item active">flu-peak Documentation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -123,31 +143,38 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="flu-peak-evt-documentation">
-<h1>flu-peak-evt Documentation<a class="headerlink" href="#flu-peak-evt-documentation" title="Link to this heading"></a></h1>
-<p>Influenza extreme-peak modeling using EVT and SIR.</p>
+  <section id="flu-peak-documentation">
+<h1>flu-peak Documentation<a class="headerlink" href="#flu-peak-documentation" title="Link to this heading"></a></h1>
+<p>Influenza peak prediction with GEV and SIR models.</p>
 <div class="toctree-wrapper compound">
 </div>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>uv<span class="w"> </span>venv
-<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
-uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </pre></div>
 </div>
 </section>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>run_experiment<span class="w"> </span>examples/sample_influenza.csv<span class="w"> </span>--output<span class="w"> </span>results/
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>run_experiment<span class="w"> </span>--help
 </pre></div>
 </div>
 </section>
+<section id="modules">
+<h2>Modules<a class="headerlink" href="#modules" title="Link to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+<section id="module-flu_peak">
+<span id="api-reference"></span><h1>API Reference<a class="headerlink" href="#module-flu_peak" title="Link to this heading"></a></h1>
+<p>Influenza extreme-peak modeling with EVT and SIR.</p>
 <section id="module-flu_peak.data">
-<span id="api-reference"></span><h2>API Reference<a class="headerlink" href="#module-flu_peak.data" title="Link to this heading"></a></h2>
+<span id="data-module"></span><h2>Data Module<a class="headerlink" href="#module-flu_peak.data" title="Link to this heading"></a></h2>
 <p>Data loading and synthetic data generation.</p>
 <dl>
-<dt>Example usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">tempfile</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<dt>Example usage:</dt><dd><div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">generate_synthetic_data</span><span class="p">(</span><span class="n">n_seasons</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_regions</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
 <span class="go">True</span>
@@ -159,203 +186,505 @@ uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </s
 </dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="flu_peak.data.generate_synthetic_data">
-<span class="sig-prename descclassname"><span class="pre">flu_peak.data.</span></span><span class="sig-name descname"><span class="pre">generate_synthetic_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_seasons</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_regions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">42</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/flu_peak/data.html#generate_synthetic_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.data.generate_synthetic_data" title="Link to this definition"></a></dt>
-<dd><p>Generate synthetic influenza surveillance data.</p>
+<span class="sig-prename descclassname"><span class="pre">flu_peak.data.</span></span><span class="sig-name descname"><span class="pre">generate_synthetic_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_seasons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_regions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">42</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/data.html#generate_synthetic_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.data.generate_synthetic_data" title="Link to this definition"></a></dt>
+<dd><p>Generate synthetic influenza surveillance data in CDC format.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>n_seasons</strong> – Number of flu seasons to generate</p></li>
-<li><p><strong>n_regions</strong> – Number of regions</p></li>
-<li><p><strong>seed</strong> – Random seed for reproducibility</p></li>
+<li><p><strong>n_seasons</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of flu seasons to generate</p></li>
+<li><p><strong>n_regions</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of regions</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Random seed for reproducibility</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>date, region, cases, tests</p>
+<dd class="field-even"><p>YEAR, WEEK, REGION, %WEIGHTED ILI</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>DataFrame with columns</p>
+<dd class="field-odd"><p>DataFrame with CDC-style columns</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="flu_peak.data.load_flu_data">
-<span class="sig-prename descclassname"><span class="pre">flu_peak.data.</span></span><span class="sig-name descname"><span class="pre">load_flu_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/flu_peak/data.html#load_flu_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.data.load_flu_data" title="Link to this definition"></a></dt>
-<dd><p>Load influenza data from CSV.</p>
+<span class="sig-prename descclassname"><span class="pre">flu_peak.data.</span></span><span class="sig-name descname"><span class="pre">load_flu_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csv_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/data.html#load_flu_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.data.load_flu_data" title="Link to this definition"></a></dt>
+<dd><p>Load influenza data from CSV in CDC format.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>csv_path</strong> – Path to CSV file with columns: date, region, cases, tests</p>
+<dd class="field-odd"><p><strong>csv_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.14)"><em>Path</em></a><em> | </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Path to CSV file with columns: YEAR, WEEK, REGION, %WEIGHTED ILI</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>DataFrame with validated data</p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>ValueError</strong> – If required columns are missing or dates are invalid</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If required columns are missing</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><em>DataFrame</em></a></p>
 </dd>
 </dl>
 </dd></dl>
 
-<p id="module-flu_peak.preprocess">Season extraction and peak detection.</p>
+</section>
+<section id="module-flu_peak.eval">
+<span id="evaluation-module"></span><h2>Evaluation Module<a class="headerlink" href="#module-flu_peak.eval" title="Link to this heading"></a></h2>
+<p>Evaluation metrics for predictive distributions.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="flu_peak.eval.crps">
+<span class="sig-prename descclassname"><span class="pre">flu_peak.eval.</span></span><span class="sig-name descname"><span class="pre">crps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/eval.html#crps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.eval.crps" title="Link to this definition"></a></dt>
+<dd><p>Continuous Ranked Probability Score.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>samples</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>) – Predictive samples</p></li>
+<li><p><strong>observation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Observed value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>CRPS (lower is better)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flu_peak.eval.log_score">
+<span class="sig-prename descclassname"><span class="pre">flu_peak.eval.</span></span><span class="sig-name descname"><span class="pre">log_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/eval.html#log_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.eval.log_score" title="Link to this definition"></a></dt>
+<dd><p>Negative log-likelihood score using kernel density estimation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>samples</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>) – Predictive samples</p></li>
+<li><p><strong>observation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Observed value</p></li>
+<li><p><strong>bandwidth</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em> | </em><em>None</em>) – KDE bandwidth (auto if None)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Log score (higher is better)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flu_peak.eval.coverage">
+<span class="sig-prename descclassname"><span class="pre">flu_peak.eval.</span></span><span class="sig-name descname"><span class="pre">coverage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lower</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/eval.html#coverage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.eval.coverage" title="Link to this definition"></a></dt>
+<dd><p>Check if observation falls within prediction interval.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lower</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Lower bound of interval</p></li>
+<li><p><strong>upper</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Upper bound of interval</p></li>
+<li><p><strong>observation</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Observed value</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>1.0 if covered, 0.0 otherwise</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flu_peak.eval.brier_score">
+<span class="sig-prename descclassname"><span class="pre">flu_peak.eval.</span></span><span class="sig-name descname"><span class="pre">brier_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">forecast_prob</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observed</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/eval.html#brier_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.eval.brier_score" title="Link to this definition"></a></dt>
+<dd><p>Brier score for binary outcomes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>forecast_prob</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Forecast probability [0, 1]</p></li>
+<li><p><strong>observed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Observed outcome</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Brier score (lower is better)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flu_peak.eval.pit_histogram">
+<span class="sig-prename descclassname"><span class="pre">flu_peak.eval.</span></span><span class="sig-name descname"><span class="pre">pit_histogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samples_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/eval.html#pit_histogram"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.eval.pit_histogram" title="Link to this definition"></a></dt>
+<dd><p>Probability Integral Transform histogram for calibration check.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>samples_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a><em>]</em>) – List of predictive sample arrays (one per observation)</p></li>
+<li><p><strong>observations</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>) – Array of observed values</p></li>
+<li><p><strong>bins</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of histogram bins</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple of (histogram counts, bin edges)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-flu_peak.preprocess">
+<span id="preprocessing-module"></span><h2>Preprocessing Module<a class="headerlink" href="#module-flu_peak.preprocess" title="Link to this heading"></a></h2>
+<p>Season extraction and peak detection.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="flu_peak.preprocess.SeasonConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flu_peak.preprocess.</span></span><span class="sig-name descname"><span class="pre">SeasonConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">11</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_day</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_month</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_day</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/preprocess.html#SeasonConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.preprocess.SeasonConfig" title="Link to this definition"></a></dt>
-<dd><p>Configuration for flu season boundaries.</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flu_peak.preprocess.</span></span><span class="sig-name descname"><span class="pre">SeasonConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_month</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">11</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_day</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_month</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_day</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/preprocess.html#SeasonConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.preprocess.SeasonConfig" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Configuration for flu season boundaries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_month</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
+<li><p><strong>start_day</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
+<li><p><strong>end_month</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
+<li><p><strong>end_day</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="flu_peak.preprocess.SeasonConfig.start_month">
-<span class="sig-name descname"><span class="pre">start_month</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">11</span></em><a class="headerlink" href="#flu_peak.preprocess.SeasonConfig.start_month" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">start_month</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">11</span></em><a class="headerlink" href="#flu_peak.preprocess.SeasonConfig.start_month" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="flu_peak.preprocess.SeasonConfig.start_day">
-<span class="sig-name descname"><span class="pre">start_day</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#flu_peak.preprocess.SeasonConfig.start_day" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">start_day</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#flu_peak.preprocess.SeasonConfig.start_day" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="flu_peak.preprocess.SeasonConfig.end_month">
-<span class="sig-name descname"><span class="pre">end_month</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#flu_peak.preprocess.SeasonConfig.end_month" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">end_month</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">4</span></em><a class="headerlink" href="#flu_peak.preprocess.SeasonConfig.end_month" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="flu_peak.preprocess.SeasonConfig.end_day">
-<span class="sig-name descname"><span class="pre">end_day</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></em><a class="headerlink" href="#flu_peak.preprocess.SeasonConfig.end_day" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">end_day</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30</span></em><a class="headerlink" href="#flu_peak.preprocess.SeasonConfig.end_day" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="flu_peak.preprocess.SeasonPeak">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flu_peak.preprocess.</span></span><span class="sig-name descname"><span class="pre">SeasonPeak</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">season</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peak_cases</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peak_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">season_start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">season_end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/preprocess.html#SeasonPeak"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.preprocess.SeasonPeak" title="Link to this definition"></a></dt>
-<dd><p>Peak information for a flu season.</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flu_peak.preprocess.</span></span><span class="sig-name descname"><span class="pre">SeasonPeak</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">season</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peak_cases</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peak_week</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">peak_year</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/preprocess.html#SeasonPeak"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.preprocess.SeasonPeak" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Peak information for a flu season.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>season</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>)</p></li>
+<li><p><strong>peak_cases</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>)</p></li>
+<li><p><strong>peak_week</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
+<li><p><strong>peak_year</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>)</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="flu_peak.preprocess.SeasonPeak.season">
-<span class="sig-name descname"><span class="pre">season</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#flu_peak.preprocess.SeasonPeak.season" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">season</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#flu_peak.preprocess.SeasonPeak.season" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="flu_peak.preprocess.SeasonPeak.region">
-<span class="sig-name descname"><span class="pre">region</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#flu_peak.preprocess.SeasonPeak.region" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">region</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><span class="pre">str</span></a></em><a class="headerlink" href="#flu_peak.preprocess.SeasonPeak.region" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="flu_peak.preprocess.SeasonPeak.peak_cases">
-<span class="sig-name descname"><span class="pre">peak_cases</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#flu_peak.preprocess.SeasonPeak.peak_cases" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">peak_cases</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#flu_peak.preprocess.SeasonPeak.peak_cases" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="flu_peak.preprocess.SeasonPeak.peak_date">
-<span class="sig-name descname"><span class="pre">peak_date</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">date</span></em><a class="headerlink" href="#flu_peak.preprocess.SeasonPeak.peak_date" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="flu_peak.preprocess.SeasonPeak.peak_week">
+<span class="sig-name descname"><span class="pre">peak_week</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#flu_peak.preprocess.SeasonPeak.peak_week" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="flu_peak.preprocess.SeasonPeak.season_start">
-<span class="sig-name descname"><span class="pre">season_start</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">date</span></em><a class="headerlink" href="#flu_peak.preprocess.SeasonPeak.season_start" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="flu_peak.preprocess.SeasonPeak.season_end">
-<span class="sig-name descname"><span class="pre">season_end</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">date</span></em><a class="headerlink" href="#flu_peak.preprocess.SeasonPeak.season_end" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="flu_peak.preprocess.SeasonPeak.peak_year">
+<span class="sig-name descname"><span class="pre">peak_year</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><span class="pre">int</span></a></em><a class="headerlink" href="#flu_peak.preprocess.SeasonPeak.peak_year" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="flu_peak.preprocess.extract_season_peaks">
-<span class="sig-prename descclassname"><span class="pre">flu_peak.preprocess.</span></span><span class="sig-name descname"><span class="pre">extract_season_peaks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#flu_peak.preprocess.SeasonConfig" title="flu_peak.preprocess.SeasonConfig"><span class="pre">SeasonConfig</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#flu_peak.preprocess.SeasonPeak" title="flu_peak.preprocess.SeasonPeak"><span class="pre">SeasonPeak</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/flu_peak/preprocess.html#extract_season_peaks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.preprocess.extract_season_peaks" title="Link to this definition"></a></dt>
-<dd><p>Extract one peak per season per region.</p>
+<span class="sig-prename descclassname"><span class="pre">flu_peak.preprocess.</span></span><span class="sig-name descname"><span class="pre">extract_season_peaks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/preprocess.html#extract_season_peaks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.preprocess.extract_season_peaks" title="Link to this definition"></a></dt>
+<dd><p>Extract one peak per season per region from CDC format data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> – DataFrame with columns: date, region, cases, tests</p></li>
-<li><p><strong>config</strong> – Season configuration (default: Nov 1 - Apr 30)</p></li>
+<li><p><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.3.3)"><em>DataFrame</em></a>) – DataFrame with columns: YEAR, WEEK, REGION, %WEIGHTED ILI</p></li>
+<li><p><strong>config</strong> (<a class="reference internal" href="#flu_peak.preprocess.SeasonConfig" title="flu_peak.preprocess.SeasonConfig"><em>SeasonConfig</em></a><em> | </em><em>None</em>) – Season configuration (unused, kept for compatibility)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>List of SeasonPeak objects</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#flu_peak.preprocess.SeasonPeak" title="flu_peak.preprocess.SeasonPeak"><em>SeasonPeak</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="flu_peak.preprocess.split_train_test">
-<span class="sig-prename descclassname"><span class="pre">flu_peak.preprocess.</span></span><span class="sig-name descname"><span class="pre">split_train_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peaks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#flu_peak.preprocess.SeasonPeak" title="flu_peak.preprocess.SeasonPeak"><span class="pre">SeasonPeak</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_seasons</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#flu_peak.preprocess.SeasonPeak" title="flu_peak.preprocess.SeasonPeak"><span class="pre">SeasonPeak</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#flu_peak.preprocess.SeasonPeak" title="flu_peak.preprocess.SeasonPeak"><span class="pre">SeasonPeak</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/flu_peak/preprocess.html#split_train_test"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.preprocess.split_train_test" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">flu_peak.preprocess.</span></span><span class="sig-name descname"><span class="pre">split_train_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peaks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_seasons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/preprocess.html#split_train_test"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.preprocess.split_train_test" title="Link to this definition"></a></dt>
 <dd><p>Split peaks into train and test sets by season.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>peaks</strong> – List of season peaks</p></li>
-<li><p><strong>test_seasons</strong> – Number of most recent seasons to hold out</p></li>
+<li><p><strong>peaks</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><em>list</em></a><em>[</em><a class="reference internal" href="#flu_peak.preprocess.SeasonPeak" title="flu_peak.preprocess.SeasonPeak"><em>SeasonPeak</em></a><em>]</em>) – List of season peaks</p></li>
+<li><p><strong>test_seasons</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of most recent seasons to hold out</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Tuple of (train_peaks, test_peaks)</p>
 </dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#flu_peak.preprocess.SeasonPeak" title="flu_peak.preprocess.SeasonPeak"><em>SeasonPeak</em></a>], <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)">list</a>[<a class="reference internal" href="#flu_peak.preprocess.SeasonPeak" title="flu_peak.preprocess.SeasonPeak"><em>SeasonPeak</em></a>]]</p>
+</dd>
 </dl>
 </dd></dl>
 
-<p id="module-flu_peak.models.sir">SIR model for influenza forecasting.</p>
+</section>
+<section id="models">
+<h2>Models<a class="headerlink" href="#models" title="Link to this heading"></a></h2>
+<section id="module-flu_peak.models.gev">
+<span id="gev-model"></span><h3>GEV Model<a class="headerlink" href="#module-flu_peak.models.gev" title="Link to this heading"></a></h3>
+<p>Generalized Extreme Value (GEV) model for block maxima.</p>
 <dl class="py class">
-<dt class="sig sig-object py" id="flu_peak.models.sir.SIRModel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flu_peak.models.sir.</span></span><span class="sig-name descname"><span class="pre">SIRModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/models/sir.html#SIRModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.models.sir.SIRModel" title="Link to this definition"></a></dt>
-<dd><p>Deterministic SIR epidemic model.</p>
+<dt class="sig sig-object py" id="flu_peak.models.gev.GEVModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flu_peak.models.gev.</span></span><span class="sig-name descname"><span class="pre">GEVModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xi</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/models/gev.html#GEVModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.models.gev.GEVModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Generalized Extreme Value distribution for seasonal peak maxima.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>beta</strong> – Transmission rate</p></li>
-<li><p><strong>gamma</strong> – Recovery rate</p></li>
-<li><p><strong>N</strong> – Population size</p></li>
+<li><p><strong>mu</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Location parameter</p></li>
+<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Scale parameter</p></li>
+<li><p><strong>xi</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Shape parameter (tail index)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flu_peak.models.gev.GEVModel.mu">
+<span class="sig-name descname"><span class="pre">mu</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#flu_peak.models.gev.GEVModel.mu" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flu_peak.models.gev.GEVModel.sigma">
+<span class="sig-name descname"><span class="pre">sigma</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#flu_peak.models.gev.GEVModel.sigma" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="flu_peak.models.gev.GEVModel.xi">
+<span class="sig-name descname"><span class="pre">xi</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#flu_peak.models.gev.GEVModel.xi" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flu_peak.models.gev.GEVModel.return_level">
+<span class="sig-name descname"><span class="pre">return_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">return_period</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/models/gev.html#GEVModel.return_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.models.gev.GEVModel.return_level" title="Link to this definition"></a></dt>
+<dd><p>Compute return level for given return period.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>return_period</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Return period (e.g., 10 for 10-year return level)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Return level value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flu_peak.models.gev.GEVModel.pdf">
+<span class="sig-name descname"><span class="pre">pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/models/gev.html#GEVModel.pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.models.gev.GEVModel.pdf" title="Link to this definition"></a></dt>
+<dd><p>Probability density function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>) – Values to evaluate</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>PDF values</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flu_peak.models.gev.GEVModel.cdf">
+<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/models/gev.html#GEVModel.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.models.gev.GEVModel.cdf" title="Link to this definition"></a></dt>
+<dd><p>Cumulative distribution function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>) – Values to evaluate</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>CDF values</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flu_peak.models.gev.GEVModel.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/models/gev.html#GEVModel.sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.models.gev.GEVModel.sample" title="Link to this definition"></a></dt>
+<dd><p>Generate samples from the distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of samples</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>) – Random seed</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of samples</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flu_peak.models.gev.fit_gev_to_peaks">
+<span class="sig-prename descclassname"><span class="pre">flu_peak.models.gev.</span></span><span class="sig-name descname"><span class="pre">fit_gev_to_peaks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peaks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mle'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_mom_fallback</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/models/gev.html#fit_gev_to_peaks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.models.gev.fit_gev_to_peaks" title="Link to this definition"></a></dt>
+<dd><p>Fit GEV to block maxima using maximum likelihood.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>peaks</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>) – Block maxima (e.g., seasonal peaks)</p></li>
+<li><p><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a>) – Fitting method (‘mle’ or ‘mom’)</p></li>
+<li><p><strong>use_mom_fallback</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a>) – Use Method of Moments if MLE fails</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Fitted GEVModel</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If fit fails</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#flu_peak.models.gev.GEVModel" title="flu_peak.models.gev.GEVModel"><em>GEVModel</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-flu_peak.models.sir">
+<span id="sir-model"></span><h3>SIR Model<a class="headerlink" href="#module-flu_peak.models.sir" title="Link to this heading"></a></h3>
+<p>SIR model for influenza forecasting.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="flu_peak.models.sir.SIRModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flu_peak.models.sir.</span></span><span class="sig-name descname"><span class="pre">SIRModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/models/sir.html#SIRModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.models.sir.SIRModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Deterministic SIR epidemic model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Transmission rate</p></li>
+<li><p><strong>gamma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Recovery rate</p></li>
+<li><p><strong>N</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Population size</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="flu_peak.models.sir.SIRModel.beta">
-<span class="sig-name descname"><span class="pre">beta</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#flu_peak.models.sir.SIRModel.beta" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">beta</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#flu_peak.models.sir.SIRModel.beta" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="flu_peak.models.sir.SIRModel.gamma">
-<span class="sig-name descname"><span class="pre">gamma</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#flu_peak.models.sir.SIRModel.gamma" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">gamma</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#flu_peak.models.sir.SIRModel.gamma" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="flu_peak.models.sir.SIRModel.N">
-<span class="sig-name descname"><span class="pre">N</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#flu_peak.models.sir.SIRModel.N" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">N</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><span class="pre">float</span></a></em><a class="headerlink" href="#flu_peak.models.sir.SIRModel.N" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="flu_peak.models.sir.SIRModel.simulate">
-<span class="sig-name descname"><span class="pre">simulate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">I0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">R0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/flu_peak/models/sir.html#SIRModel.simulate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.models.sir.SIRModel.simulate" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">simulate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">I0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">R0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/models/sir.html#SIRModel.simulate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.models.sir.SIRModel.simulate" title="Link to this definition"></a></dt>
 <dd><p>Simulate SIR dynamics.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>t</strong> – Time points</p></li>
-<li><p><strong>I0</strong> – Initial infected</p></li>
-<li><p><strong>R0</strong> – Initial recovered</p></li>
+<li><p><strong>t</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>) – Time points</p></li>
+<li><p><strong>I0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Initial infected</p></li>
+<li><p><strong>R0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Initial recovered</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Tuple of (S, I, R) trajectories</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)">tuple</a>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="flu_peak.models.sir.SIRModel.bootstrap_predict">
-<span class="sig-name descname"><span class="pre">bootstrap_predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">incidence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_bootstrap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict_horizon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#flu_peak.models.sir.SIRModel.bootstrap_predict" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">bootstrap_predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">incidence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_bootstrap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict_horizon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flu_peak.models.sir.SIRModel.bootstrap_predict" title="Link to this definition"></a></dt>
 <dd><p>Bootstrap prediction for SIR model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>model</strong> – Fitted SIR model</p></li>
-<li><p><strong>incidence</strong> – Observed incidence</p></li>
-<li><p><strong>t</strong> – Time points</p></li>
-<li><p><strong>n_bootstrap</strong> – Number of bootstrap samples</p></li>
-<li><p><strong>predict_horizon</strong> – Steps ahead to predict</p></li>
-<li><p><strong>seed</strong> – Random seed</p></li>
+<li><p><strong>model</strong> (<a class="reference internal" href="#flu_peak.models.sir.SIRModel" title="flu_peak.models.sir.SIRModel"><em>SIRModel</em></a>) – Fitted SIR model</p></li>
+<li><p><strong>incidence</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>) – Observed incidence</p></li>
+<li><p><strong>t</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>) – Time points</p></li>
+<li><p><strong>n_bootstrap</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of bootstrap samples</p></li>
+<li><p><strong>predict_horizon</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Steps ahead to predict</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>) – Random seed</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Array of shape (n_bootstrap, predict_horizon) with predictions</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="flu_peak.models.sir.SIRModel.predict_peak_distribution">
+<span class="sig-name descname"><span class="pre">predict_peak_distribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">incidence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#flu_peak.models.sir.SIRModel.predict_peak_distribution" title="Link to this definition"></a></dt>
+<dd><p>Generate distribution of peak predictions via bootstrap.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<a class="reference internal" href="#flu_peak.models.sir.SIRModel" title="flu_peak.models.sir.SIRModel"><em>SIRModel</em></a>) – Fitted SIR model</p></li>
+<li><p><strong>incidence</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>) – Observed incidence</p></li>
+<li><p><strong>t</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>) – Time points</p></li>
+<li><p><strong>n_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of bootstrap samples</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>) – Random seed</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Array of peak predictions</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -364,248 +693,76 @@ uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </s
 
 <dl class="py function">
 <dt class="sig sig-object py" id="flu_peak.models.sir.fit_sir_to_incidence">
-<span class="sig-prename descclassname"><span class="pre">flu_peak.models.sir.</span></span><span class="sig-name descname"><span class="pre">fit_sir_to_incidence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">incidence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#flu_peak.models.sir.SIRModel" title="flu_peak.models.sir.SIRModel"><span class="pre">SIRModel</span></a></span></span><a class="reference internal" href="_modules/flu_peak/models/sir.html#fit_sir_to_incidence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.models.sir.fit_sir_to_incidence" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">flu_peak.models.sir.</span></span><span class="sig-name descname"><span class="pre">fit_sir_to_incidence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">incidence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/models/sir.html#fit_sir_to_incidence"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.models.sir.fit_sir_to_incidence" title="Link to this definition"></a></dt>
 <dd><p>Fit SIR model to incidence data via least squares.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>incidence</strong> – Observed incidence (infected counts)</p></li>
-<li><p><strong>t</strong> – Time points</p></li>
-<li><p><strong>N</strong> – Population size</p></li>
+<li><p><strong>incidence</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>) – Observed incidence (infected counts)</p></li>
+<li><p><strong>t</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>) – Time points</p></li>
+<li><p><strong>N</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – Population size</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Fitted SIRModel</p>
 </dd>
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>ValueError</strong> – If optimization fails</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If optimization fails</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#flu_peak.models.sir.SIRModel" title="flu_peak.models.sir.SIRModel"><em>SIRModel</em></a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="flu_peak.models.sir.bootstrap_predict">
-<span class="sig-prename descclassname"><span class="pre">flu_peak.models.sir.</span></span><span class="sig-name descname"><span class="pre">bootstrap_predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#flu_peak.models.sir.SIRModel" title="flu_peak.models.sir.SIRModel"><span class="pre">SIRModel</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">incidence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_bootstrap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict_horizon</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/flu_peak/models/sir.html#bootstrap_predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.models.sir.bootstrap_predict" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">flu_peak.models.sir.</span></span><span class="sig-name descname"><span class="pre">bootstrap_predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">incidence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_bootstrap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict_horizon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/models/sir.html#bootstrap_predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.models.sir.bootstrap_predict" title="Link to this definition"></a></dt>
 <dd><p>Bootstrap prediction for SIR model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>model</strong> – Fitted SIR model</p></li>
-<li><p><strong>incidence</strong> – Observed incidence</p></li>
-<li><p><strong>t</strong> – Time points</p></li>
-<li><p><strong>n_bootstrap</strong> – Number of bootstrap samples</p></li>
-<li><p><strong>predict_horizon</strong> – Steps ahead to predict</p></li>
-<li><p><strong>seed</strong> – Random seed</p></li>
+<li><p><strong>model</strong> (<a class="reference internal" href="#flu_peak.models.sir.SIRModel" title="flu_peak.models.sir.SIRModel"><em>SIRModel</em></a>) – Fitted SIR model</p></li>
+<li><p><strong>incidence</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>) – Observed incidence</p></li>
+<li><p><strong>t</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>) – Time points</p></li>
+<li><p><strong>n_bootstrap</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of bootstrap samples</p></li>
+<li><p><strong>predict_horizon</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Steps ahead to predict</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>) – Random seed</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Array of shape (n_bootstrap, predict_horizon) with predictions</p>
 </dd>
-</dl>
-</dd></dl>
-
-<p id="module-flu_peak.models.evt">Extreme Value Theory (EVT) model using Generalized Pareto Distribution.</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="flu_peak.models.evt.EVTModel">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">flu_peak.models.evt.</span></span><span class="sig-name descname"><span class="pre">EVTModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/models/evt.html#EVTModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.models.evt.EVTModel" title="Link to this definition"></a></dt>
-<dd><p>Generalized Pareto Distribution for extreme peaks.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>xi</strong> – Shape parameter (tail index)</p></li>
-<li><p><strong>sigma</strong> – Scale parameter</p></li>
-<li><p><strong>threshold</strong> – Threshold for peaks-over-threshold</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="flu_peak.models.evt.EVTModel.xi">
-<span class="sig-name descname"><span class="pre">xi</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#flu_peak.models.evt.EVTModel.xi" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="flu_peak.models.evt.EVTModel.sigma">
-<span class="sig-name descname"><span class="pre">sigma</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#flu_peak.models.evt.EVTModel.sigma" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="flu_peak.models.evt.EVTModel.threshold">
-<span class="sig-name descname"><span class="pre">threshold</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#flu_peak.models.evt.EVTModel.threshold" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="flu_peak.models.evt.EVTModel.quantile">
-<span class="sig-name descname"><span class="pre">quantile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/flu_peak/models/evt.html#EVTModel.quantile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.models.evt.EVTModel.quantile" title="Link to this definition"></a></dt>
-<dd><p>Compute quantile of the distribution.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>p</strong> – Probability level (0 &lt; p &lt; 1)</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Quantile value</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="flu_peak.models.evt.EVTModel.pdf">
-<span class="sig-name descname"><span class="pre">pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/flu_peak/models/evt.html#EVTModel.pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.models.evt.EVTModel.pdf" title="Link to this definition"></a></dt>
-<dd><p>Probability density function.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>x</strong> – Values to evaluate</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>PDF values</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="flu_peak.models.evt.EVTModel.sample">
-<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/flu_peak/models/evt.html#EVTModel.sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.models.evt.EVTModel.sample" title="Link to this definition"></a></dt>
-<dd><p>Generate samples from the distribution.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>n</strong> – Number of samples</p></li>
-<li><p><strong>seed</strong> – Random seed</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Array of samples</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="flu_peak.models.evt.fit_gpd_to_peaks">
-<span class="sig-prename descclassname"><span class="pre">flu_peak.models.evt.</span></span><span class="sig-name descname"><span class="pre">fit_gpd_to_peaks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peaks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#flu_peak.models.evt.EVTModel" title="flu_peak.models.evt.EVTModel"><span class="pre">EVTModel</span></a></span></span><a class="reference internal" href="_modules/flu_peak/models/evt.html#fit_gpd_to_peaks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.models.evt.fit_gpd_to_peaks" title="Link to this definition"></a></dt>
-<dd><p>Fit GPD to peak values using maximum likelihood.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>peaks</strong> – Peak values</p></li>
-<li><p><strong>threshold</strong> – Threshold for exceedances</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Fitted EVTModel</p>
-</dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>ValueError</strong> – If fit fails</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="flu_peak.models.evt.fit_hierarchical_gpd">
-<span class="sig-prename descclassname"><span class="pre">flu_peak.models.evt.</span></span><span class="sig-name descname"><span class="pre">fit_hierarchical_gpd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">peaks_by_region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold_quantile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#flu_peak.models.evt.EVTModel" title="flu_peak.models.evt.EVTModel"><span class="pre">EVTModel</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/flu_peak/models/evt.html#fit_hierarchical_gpd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.models.evt.fit_hierarchical_gpd" title="Link to this definition"></a></dt>
-<dd><p>Fit GPD with empirical Bayes shrinkage across regions.</p>
+<dt class="sig sig-object py" id="flu_peak.models.sir.predict_peak_distribution">
+<span class="sig-prename descclassname"><span class="pre">flu_peak.models.sir.</span></span><span class="sig-name descname"><span class="pre">predict_peak_distribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">incidence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flu_peak/models/sir.html#predict_peak_distribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.models.sir.predict_peak_distribution" title="Link to this definition"></a></dt>
+<dd><p>Generate distribution of peak predictions via bootstrap.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>peaks_by_region</strong> – Dictionary mapping region to peak values</p></li>
-<li><p><strong>threshold_quantile</strong> – Quantile for threshold selection</p></li>
+<li><p><strong>model</strong> (<a class="reference internal" href="#flu_peak.models.sir.SIRModel" title="flu_peak.models.sir.SIRModel"><em>SIRModel</em></a>) – Fitted SIR model</p></li>
+<li><p><strong>incidence</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>) – Observed incidence</p></li>
+<li><p><strong>t</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a>) – Time points</p></li>
+<li><p><strong>n_samples</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) – Number of bootstrap samples</p></li>
+<li><p><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> | </em><em>None</em>) – Random seed</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Dictionary of fitted models per region</p>
+<dd class="field-even"><p>Array of peak predictions</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><em>ndarray</em></a></p>
 </dd>
 </dl>
 </dd></dl>
 
-<p id="module-flu_peak.eval">Evaluation metrics for predictive distributions.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="flu_peak.eval.crps">
-<span class="sig-prename descclassname"><span class="pre">flu_peak.eval.</span></span><span class="sig-name descname"><span class="pre">crps</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/flu_peak/eval.html#crps"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.eval.crps" title="Link to this definition"></a></dt>
-<dd><p>Continuous Ranked Probability Score.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>samples</strong> – Predictive samples</p></li>
-<li><p><strong>observation</strong> – Observed value</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>CRPS (lower is better)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="flu_peak.eval.log_score">
-<span class="sig-prename descclassname"><span class="pre">flu_peak.eval.</span></span><span class="sig-name descname"><span class="pre">log_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samples</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bandwidth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/flu_peak/eval.html#log_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.eval.log_score" title="Link to this definition"></a></dt>
-<dd><p>Negative log-likelihood score using kernel density estimation.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>samples</strong> – Predictive samples</p></li>
-<li><p><strong>observation</strong> – Observed value</p></li>
-<li><p><strong>bandwidth</strong> – KDE bandwidth (auto if None)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Log score (higher is better)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="flu_peak.eval.coverage">
-<span class="sig-prename descclassname"><span class="pre">flu_peak.eval.</span></span><span class="sig-name descname"><span class="pre">coverage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lower</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/flu_peak/eval.html#coverage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.eval.coverage" title="Link to this definition"></a></dt>
-<dd><p>Check if observation falls within prediction interval.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>lower</strong> – Lower bound of interval</p></li>
-<li><p><strong>upper</strong> – Upper bound of interval</p></li>
-<li><p><strong>observation</strong> – Observed value</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>1.0 if covered, 0.0 otherwise</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="flu_peak.eval.brier_score">
-<span class="sig-prename descclassname"><span class="pre">flu_peak.eval.</span></span><span class="sig-name descname"><span class="pre">brier_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">forecast_prob</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/flu_peak/eval.html#brier_score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.eval.brier_score" title="Link to this definition"></a></dt>
-<dd><p>Brier score for binary outcomes.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>forecast_prob</strong> – Forecast probability [0, 1]</p></li>
-<li><p><strong>observed</strong> – Observed outcome</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Brier score (lower is better)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="flu_peak.eval.pit_histogram">
-<span class="sig-prename descclassname"><span class="pre">flu_peak.eval.</span></span><span class="sig-name descname"><span class="pre">pit_histogram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">samples_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bins</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/flu_peak/eval.html#pit_histogram"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flu_peak.eval.pit_histogram" title="Link to this definition"></a></dt>
-<dd><p>Probability Integral Transform histogram for calibration check.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>samples_list</strong> – List of predictive sample arrays (one per observation)</p></li>
-<li><p><strong>observations</strong> – Array of observed values</p></li>
-<li><p><strong>bins</strong> – Number of histogram bins</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Tuple of (histogram counts, bin edges)</p>
-</dd>
-</dl>
-</dd></dl>
-
+</section>
 </section>
 </section>
 <section id="indices-and-tables">
@@ -625,7 +782,7 @@ uv<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </s
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright .</p>
+    <p>&#169; Copyright 2025, Cameron Maloney.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
