@@ -7,7 +7,7 @@ sys.path.insert(0, os.path.abspath("../../src"))
 
 # -- Project information -----------------------------------------------------
 project = "flu-peak"
-copyright = "2025, Cameron Maloney"
+copyright = "2025, Cameron Maloney"  # noqa: A001
 author = "Cameron Maloney"
 release = "0.1.0"
 

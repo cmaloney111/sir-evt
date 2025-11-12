@@ -3,12 +3,6 @@ flu-peak Documentation
 
 Influenza peak prediction with GEV and SIR models.
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-
-   modules
-
 Installation
 ------------
 
@@ -22,14 +16,6 @@ Usage
 .. code-block:: bash
 
    run_experiment --help
-
-Modules
--------
-
-.. toctree::
-   :maxdepth: 4
-
-   flu_peak
 
 API Reference
 =============
