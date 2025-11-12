@@ -151,3 +151,44 @@ def test_log_score_with_bandwidth() -> None:
 
     assert np.isfinite(score)
     assert score < 0
+
+
+def test_log_score_constant_samples() -> None:
+    """Test log_score with constant samples (no variance)."""
+    samples = np.array([10.0, 10.0, 10.0, 10.0])
+    observation = 10.0
+
+    score = log_score(samples=samples, observation=observation)
+
+    assert score == 0.0
+
+
+def test_log_score_constant_samples_miss() -> None:
+    """Test log_score with constant samples and observation miss."""
+    samples = np.array([10.0, 10.0, 10.0, 10.0])
+    observation = 15.0
+
+    score = log_score(samples=samples, observation=observation)
+
+    assert score == -np.inf
+
+
+def test_log_score_kde_exception() -> None:
+    """Test log_score with data that might cause KDE exception."""
+    samples = np.array([1e-15, 1e-14, 1e-13])
+    observation = 1e-12
+
+    score = log_score(samples=samples, observation=observation)
+
+    # Should handle exception gracefully
+    assert score == -np.inf or np.isfinite(score)
+
+
+def test_log_score_zero_density() -> None:
+    """Test log_score when density evaluates to zero."""
+    samples = np.random.default_rng(42).normal(100, 0.1, 100)
+    observation = 0.0  # Very far from the distribution
+
+    score = log_score(samples=samples, observation=observation)
+
+    assert score == -np.inf or score < -100

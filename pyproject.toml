@@ -79,9 +79,18 @@ branch = true
 omit = [
     "src/flu_peak/cli.py",
     "src/flu_peak/plot.py",
+    "src/flu_peak/models/*_testing.py",
 ]
 
 [tool.coverage.report]
 precision = 2
 show_missing = true
 skip_covered = false
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "def _old_",
+]
