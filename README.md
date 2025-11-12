@@ -1,6 +1,7 @@
 # Influenza Peak Prediction
 
-[![Build Status](https://github.com/cmaloney111/sir-evt/actions/workflows/ci.yml/badge.svg)](https://github.com/cmaloney111/sir-evt/actions/workflows/ci.yml)
+[![CI: Lint & Test](https://github.com/cmaloney111/sir-evt/actions/workflows/lint-and-test.yml/badge.svg)](https://github.com/cmaloney111/sir-evt/actions/workflows/lint-and-test.yml)
+[![Docs](https://github.com/cmaloney111/sir-evt/actions/workflows/docs.yml/badge.svg)](https://github.com/cmaloney111/sir-evt/actions/workflows/docs.yml)
 
 Probabilistic forecasting of seasonal influenza peaks using GEV and SIR models with proper scoring rules.
 
