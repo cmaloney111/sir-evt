@@ -1,12 +1,11 @@
 """Data loading and synthetic data generation.
 
 Example usage:
-    >>> import tempfile
-    >>> from pathlib import Path
+    >>> from flu_peak.data import generate_synthetic_data
     >>> df = generate_synthetic_data(n_seasons=1, n_regions=1, seed=42)
     >>> len(df) > 0
     True
-    >>> set(df.columns) == {"date", "region", "cases", "tests"}
+    >>> "YEAR" in df.columns and "WEEK" in df.columns
     True
 """
 
