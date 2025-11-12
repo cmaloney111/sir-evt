@@ -8,8 +8,8 @@ import pandas as pd
 from scipy.stats import gaussian_kde
 
 from flu_peak.data import generate_synthetic_data, load_flu_data
-from flu_peak.models.gev_testing import GEVModel
-from flu_peak.models.sir_testing import SIRModel
+from flu_peak.models.gev_cli import GEVModel
+from flu_peak.models.sir_cli import SIRModel
 from flu_peak.plot import (
     plot_comparison_metrics,
     plot_data_overview,
